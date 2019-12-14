@@ -1,0 +1,15 @@
+os: linux
+language: node_js
+node_js: 10
+jobs:
+  include:
+    - name: "IPFS"
+      install:
+        - npm ci
+        - npm install -g ipfs-deploy
+        - npm install -g @triplespeeder/ens-updater
+      script: npm run build
+      deploy:
+        provider: script
+        script: bash scripts/deploy_ipfs.sh pinata https://mainnet.infura.io/v3/$INFURA_ID
+        skip_cleanup: true
